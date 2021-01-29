@@ -116,7 +116,7 @@ class AccountWhIvaLine(models.Model):
         'account.wh.iva', string='Retención de IVA',
         ondelete='cascade', help="Retención de IVA")
     invoice_id = fields.Many2one(
-        'account.move', string='Factura', required=True, domain="[('type', 'in', ('out_invoice', 'in_invoice'))]",
+        'account.move', string='Factura', required=True, domain="[('move_type', 'in', ('out_invoice', 'in_invoice'))]",
         ondelete='restrict', help="Factura de Retención")
     supplier_invoice_number = fields.Char(
         string='Número de factura del proveedor', size=64,

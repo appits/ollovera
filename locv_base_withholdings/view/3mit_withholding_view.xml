@@ -13,7 +13,7 @@
             <field name="inherit_id" ref="account.view_move_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='other_info']" position="before">
-                   <page string="Retención IVA" attrs="{'invisible':[('type', '=', 'entry')]}">
+                   <page string="Retención IVA" attrs="{'invisible':[('move_type', '=', 'entry')]}">
                         <separator colspan="4" string="xsep"  name="xsep" invisible='1'/>
                         <separator colspan="4"  name="vsep" invisible="1"/>
                         <separator colspan="4" string="isep" name="isep" invisible="1"/>
