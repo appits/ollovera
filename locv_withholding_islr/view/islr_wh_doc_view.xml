@@ -157,7 +157,7 @@
                                     </field>
                                 </page>
                                 <page string="Facturas" invisible="1">
-                                    <field domain="[('partner_id','=',partner_id),('status','=','no_pro'),('state','in',['open','paid']),('type','in',['out_invoice','out_refund'])]" colspan="6" name="islr_wh_doc_id" nolabel="1" widget="many2many"/>
+                                    <field domain="[('partner_id','=',partner_id),('status','=','no_pro'),('state','in',['open','paid']),('move_type','in',['out_invoice','out_refund'])]" colspan="6" name="islr_wh_doc_id" nolabel="1" widget="many2many"/>
                                 </page>
                                 <page string="Concepto de retención de ingresos">
                                     <field colspan="6" name="concept_ids" nolabel="1" widget="one2many_list"/>
@@ -294,7 +294,7 @@
                                         name="islr_wh_doc_id"
                                         colspan="6"
                                         nolabel="1"
-                                        widget="many2many" domain="[('partner_id','=',partner_id),('status','=','no_pro'),('state','in',['open','paid']),('type','in',['in_invoice','in_refund'])]"/>
+                                        widget="many2many" domain="[('partner_id','=',partner_id),('status','=','no_pro'),('state','in',['open','paid']),('move_type','in',['in_invoice','in_refund'])]"/>
 
                                 </page>
                                 <page string="Conceptos de retención de ingresos">

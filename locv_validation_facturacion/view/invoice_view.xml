@@ -12,7 +12,7 @@
 <!--                                {'invisible': ['|', ('type', 'not in',  ('out_invoice', 'out_refund', 'out_receipt','in_invoice', 'in_refund', 'in_receipt')),('type', '=', 'entry')]}-->
 <!--                        </attribute>-->
 <!--                     </xpath>-->
-                     <xpath expr="//field[@name='company_id']" position="before">
+                     <xpath expr="//field[@name='currency_id']" position="before">
                             <field name="people_type_company1" invisible="1"/>
                             <field name="people_type_individual1" invisible="1"/>
                             <field name="company_type1" invisible="1"/>
@@ -21,11 +21,11 @@
                      </xpath>
                      <xpath expr="//field[@name='partner_id']" position="after">
                             <field name="rif" string="RIF"
-                                   attrs="{'invisible':[ '|', '|', ('type', 'not in',  ('out_invoice', 'out_refund', 'out_receipt','in_invoice', 'in_refund', 'in_receipt')),('company_type1', '=', 'person'), ('people_type_company1','=','pjnd')]}"
+                                   attrs="{'invisible':[ '|', '|', ('move_type', 'not in',  ('out_invoice', 'out_refund', 'out_receipt','in_invoice', 'in_refund', 'in_receipt')),('company_type1', '=', 'person'), ('people_type_company1','=','pjnd')]}"
                             />
 
-                            <field name="nationality1" string="Tipo de Documento"  attrs="{'invisible':['|', ('type', 'not in',  ('out_invoice', 'out_refund', 'out_receipt','in_invoice', 'in_refund', 'in_receipt')),('company_type1', '=', 'company')]}"/>
-                            <field name="identification_id1" string="Documento de Identidad" attrs="{'invisible':['|', ('type', 'not in',  ('out_invoice', 'out_refund', 'out_receipt','in_invoice', 'in_refund', 'in_receipt')),('company_type1', '=', 'company')]}"/>
+                            <field name="nationality1" string="Tipo de Documento"  attrs="{'invisible':['|', ('move_type', 'not in',  ('out_invoice', 'out_refund', 'out_receipt','in_invoice', 'in_refund', 'in_receipt')),('company_type1', '=', 'company')]}"/>
+                            <field name="identification_id1" string="Documento de Identidad" attrs="{'invisible':['|', ('move_type', 'not in',  ('out_invoice', 'out_refund', 'out_receipt','in_invoice', 'in_refund', 'in_receipt')),('company_type1', '=', 'company')]}"/>
                      </xpath>
 
                      <xpath expr="//field[@name='date']" position="after">
@@ -34,9 +34,15 @@
                         <field name ="customer_rank1" invisible="1"/>
                         <field name="people_type_company1" invisible="1"/>
                          <field name="people_type_individual1" invisible="1"/>
-                        <field name="nro_planilla_impor" string="N° de Planilla de Importación" context ="{'res_partner_search_mode': 'supplier'}" attrs="{'invisible': [ '|', ('type', 'not in',  ('in_invoice', 'in_refund', 'in_receipt')), ('people_type_company1', '!=', 'pjnd')], 'required': [('type', 'in',  ('in_invoice', 'in_refund', 'in_receipt')), ('people_type_company1', '=', 'pjnd')]}" domain="[('supplier_rank', '>', 0)]"/>
-                        <field name="nro_expediente_impor" string="N° de Expediente de Importación" context ="{'res_partner_search_mode': 'supplier'}" attrs="{'invisible': [ '|', ('type', 'not in',  ('in_invoice', 'in_refund', 'in_receipt')), ('people_type_company1', '!=', 'pjnd')], 'required': [('type', 'in',  ('in_invoice', 'in_refund', 'in_receipt')), ('people_type_company1', '=', 'pjnd')]}" domain="[('supplier_rank', '>', 0)]"/>
-                        <field name="fecha_importacion" string="Fecha de la Planilla de Importación" context ="{'res_partner_search_mode': 'supplier'}" attrs="{'invisible': [ '|', ('type', 'not in',  ('in_invoice', 'in_refund', 'in_receipt')), ('people_type_company1', '!=', 'pjnd')], 'required': [('people_type_company1', '=', 'pjnd')]}" domain="[('supplier_rank', '>', 0)]"/>
+                        <!--
+                        <field name="nro_planilla_impor" string="N° de Planilla de Importación" context ="{'res_partner_search_mode': 'supplier'}" attrs="{'invisible': [ '|', ('type', 'not in',  ('in_invoice', 'in_refund', 'in_receipt')), ('people_type_company1', '!=', 'pjnd')], 'required': [('type', 'in',  ('in_invoice', 'in_refund', 'in_receipt')), ('people_type_company1', '=', 'pjnd')]}" domain="[('supplier_rank', '>', 0)]"/> -->
+                        <field name="nro_planilla_impor" string="N° de Planilla de Importación" context ="{'res_partner_search_mode': 'supplier'}" attrs="{'invisible': [ '|', ('move_type', 'not in',  ('in_invoice', 'in_refund', 'in_receipt')), ('people_type_company1', '!=', 'pjnd')], 'required': [('move_type', 'in',  ('in_invoice', 'in_refund', 'in_receipt')), ('people_type_company1', '=', 'pjnd')]}" />
+                        <!--
+                        <field name="nro_expediente_impor" string="N° de Expediente de Importación" context ="{'res_partner_search_mode': 'supplier'}" attrs="{'invisible': [ '|', ('type', 'not in',  ('in_invoice', 'in_refund', 'in_receipt')), ('people_type_company1', '!=', 'pjnd')], 'required': [('type', 'in',  ('in_invoice', 'in_refund', 'in_receipt')), ('people_type_company1', '=', 'pjnd')]}" domain="[('supplier_rank', '>', 0)]"/> -->
+                        <field name="nro_expediente_impor" string="N° de Expediente de Importación" context ="{'res_partner_search_mode': 'supplier'}" attrs="{'invisible': [ '|', ('move_type', 'not in',  ('in_invoice', 'in_refund', 'in_receipt')), ('people_type_company1', '!=', 'pjnd')], 'required': [('move_type', 'in',  ('in_invoice', 'in_refund', 'in_receipt')), ('people_type_company1', '=', 'pjnd')]}"/>
+                        <!--
+                        <field name="fecha_importacion" string="Fecha de la Planilla de Importación" context ="{'res_partner_search_mode': 'supplier'}" attrs="{'invisible': [ '|', ('type', 'not in',  ('in_invoice', 'in_refund', 'in_receipt')), ('people_type_company1', '!=', 'pjnd')], 'required': [('people_type_company1', '=', 'pjnd')]}" domain="[('supplier_rank', '>', 0)]"/> -->
+                        <field name="fecha_importacion" string="Fecha de la Planilla de Importación" context ="{'res_partner_search_mode': 'supplier'}" attrs="{'invisible': [ '|', ('move_type', 'not in',  ('in_invoice', 'in_refund', 'in_receipt')), ('people_type_company1', '!=', 'pjnd')], 'required': [('people_type_company1', '=', 'pjnd')]}"/>
                     </xpath>
                     <xpath expr="//field[@name='partner_id']" position="attributes">
                          <attribute name="create">0</attribute>
@@ -48,7 +54,7 @@
                                     context="{
                                             'res_partner_search_mode': (context.get('default_type', 'entry') in ('out_invoice', 'out_refund', 'out_receipt') and 'customer') or (context.get('default_type', 'entry') in ('in_invoice', 'in_refund', 'in_receipt') and 'supplier') or False,
                                             'show_address': 1, 'default_is_company': True, 'show_vat': True}"
-                                    attrs="{'invisible': [('type', 'not in',  ('out_invoice', 'out_refund', 'out_receipt','in_invoice', 'in_refund', 'in_receipt'))]}" domain="['|',('customer_rank', '>', 0),('supplier_rank', '>', 0)]" options="{'no_open': True, 'no_quick_create': True, 'no_create_edit' : True}"/>
+                                    attrs="{'invisible': [('move_type', 'not in',  ('out_invoice', 'out_refund', 'out_receipt','in_invoice', 'in_refund', 'in_receipt'))]}" domain="['|',('customer_rank', '>', 0),('supplier_rank', '>', 0)]" options="{'no_open': True, 'no_quick_create': True, 'no_create_edit' : True}"/>
                         </div>
                    </xpath>
                      <!--context="{'res_partner_search_mode': 'customer', 'show_vat': True}"-->
