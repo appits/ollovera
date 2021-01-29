@@ -407,7 +407,7 @@ class Accountwhmuniciline(models.Model):
     partner_id = fields.Many2one('res.partner', 'Socio',
                             help="Retención de cliente / proveedor") #
     retention_id = fields.Many2one('account.wh.munici', 'Retencion Municipal', ondelete='cascade',help="Retención Municipal")
-    invoice_id = fields.Many2one('account.move', 'Factura',help="Factura de retención", required=True,  domain="[('partner_id', '=', partner_id),('type','in',('in_invoice','in_refund')),('state','=','posted')]") #   ondelete='set null'
+    invoice_id = fields.Many2one('account.move', 'Factura',help="Factura de retención", required=True,  domain="[('partner_id', '=', partner_id),('move_type','in',('in_invoice','in_refund')),('state','=','posted')]") #   ondelete='set null'
     amount = fields.Float('Monto',help='Monto de la Retención')
     invoice_amount = fields.Float('Monto Factura', help='Monto de la Factura')
     move_id = fields.Many2one('account.move', 'Asiento contable', readonly=True,help="Asiento Contable")
