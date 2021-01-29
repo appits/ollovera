@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                 <tree decoration-muted="state=='cancel'">
                     <field name="name" string="Nombre" />
-                    <field name="partner_id" string="Socio" domain="[('is_supplier','=',True)]"/>
+                    <field name="partner_id" string="Socio" domain="[('es_proveedor','=',True)]"/>
                     <field name="journal_id" string="Diario"/>
                     <field name="ref"/>
                     <field name="bank_account_id" string="Cuenta Bancaria"/>
@@ -27,7 +27,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name" string="Nombre"/>
-                    <field name="partner_id" string="Socio" domain="[('is_customer','=',True)]"/>
+                    <field name="partner_id" string="Socio" domain="[('es_cliente','=',True)]"/>
                     <field name="journal_id" string="Diario"/>
                     <field name="ref"/>
                     <field name="bank_account_id" string="Cuenta Bancaria"/>
@@ -46,7 +46,7 @@
             <field name="arch" type="xml">
                 <tree default_order="date_advance" create="false">
                     <field name="name" string="Nombre"/>
-                    <field name="partner_id" string="Socio" domain="[('is_supplier','=',True)]"/>
+                    <field name="partner_id" string="Socio" domain="[('es_proveedor','=',True)]"/>
                     <field name="journal_id" string="Diario"/>
                     <field name="ref"/>
                     <field name="bank_account_id" string="Cuenta Bancaria"/>
@@ -67,7 +67,7 @@
             <field name="arch" type="xml">
                 <tree default_order="date_advance" create="false">
                     <field name="name" string="Nombre"/>
-                    <field name="partner_id" string="Socio" domain="[('is_customer','=',True)]"/>
+                    <field name="partner_id" string="Socio" domain="[('es_cliente','=',True)]"/>
                     <field name="journal_id" string="Diario"/>
                     <field name="ref"/>
                     <field name="bank_account_id" string="Cuenta Bancaria"/>
