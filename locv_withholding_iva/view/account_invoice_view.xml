@@ -55,7 +55,7 @@
                             <field name="wh_iva_id"/>
 <!--                            <button name="button_generate_wh_doc" string="Generate Wh doc" class="oe_highlight" type="object" colspan="1" attrs="{'invisible': ['|',('wh_iva_id','!=',False),('state','=','posted')],'readonly':['|',('wh_iva_id','!=',False),('state','!=','posted')]}"/>-->
 <!--                            <field name="consolidate_vat_wh" attrs="{'invisible':[('type', '=', 'entry')]}"/>-->
-                            <field name="vat_apply" attrs="{'invisible':[('type', '=', 'entry')]}" string="Excluir este documento de la retención de IVA"/>
+                            <field name="vat_apply" attrs="{'invisible':[('move_type', '=', 'entry')]}" string="Excluir este documento de la retención de IVA"/>
                         </group>
 
 
