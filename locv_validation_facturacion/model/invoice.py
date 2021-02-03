@@ -53,7 +53,7 @@ class AccountMoveInherit(models.Model):
     ###----------------------------------Funciones-----------------------###########
     @api.onchange('partner_id')
     def _compute_partner(self):
-        self.people_type = (self.partner_id.people_type_company)
+        #self.people_type = (self.partner_id.people_type_company)
         self.customer_rank1 = self.partner_id.customer_rank
         self.supplier_rank1 = self.partner_id.supplier_rank
         self.people_type_company1 = (self.partner_id.people_type_company)

@@ -32,7 +32,7 @@ class AccountInvoice(models.Model):
         sum_bolivares = 0
         advance_obj = self.env['account.advanced.payment']
 
-        if self.type == 'out_invoice' or self.type == 'out_refund':
+        if self.move_type == 'out_invoice' or self.move_type == 'out_refund':
             advance_bw = advance_obj.search([('partner_id', '=', self.partner_id.id),
                                          ('state', '=', 'available'),
                                          ('is_customer','=',True)])
@@ -83,7 +83,7 @@ class AccountInvoice(models.Model):
         sum_bolivares = 0
         advance_obj = self.env['account.advanced.payment']
 
-        if self.type == 'out_invoice' or self.type == 'out_refund':
+        if self.move_type == 'out_invoice' or self.move_type == 'out_refund':
             advance_bw = advance_obj.search([('partner_id', '=', self.partner_id.id),
                                              ('state', '=', 'available'),
                                              ('is_customer', '=', True)])

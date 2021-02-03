@@ -137,7 +137,7 @@ class AccountMove(models.Model):
         context = self._context or {}
         ids = isinstance(self.ids, (int)) and [self.ids] or self.ids
         inv_brw = self.browse(ids)
-        return inv_brw.type in ('in_invoice', 'in_refund')
+        return inv_brw.move_type in ('in_invoice', 'in_refund')
 
     def check_withholdable_concept(self):
         """ Check if the given invoice record is ISLR Withholdable
@@ -180,7 +180,7 @@ class AccountMove(models.Model):
         acc_part_id = rp_obj._find_accounting_partner(self.partner_id)
 
         res = False
-        if self.type in ('out_refund', 'in_refund'):
+        if self.move_type in ('out_refund', 'in_refund'):
             return False
         if not (self.type in ('out_invoice', 'in_invoice') and rp_obj._find_accounting_partner(self.company_id.partner_id).islr_withholding_agent):
             return True
@@ -192,7 +192,7 @@ class AccountMove(models.Model):
             journal = wh_doc_obj._get_journal(self.partner_id)
 
             acc_part_id = rp_obj._find_accounting_partner(self.partner_id)
-            if self.type in ('out_invoice', 'out_refund'):
+            if self.move_type in ('out_invoice', 'out_refund'):
                 acc_id = acc_part_id.property_account_receivable_id.id
                 wh_type = 'out_invoice'
             else:
@@ -324,12 +324,12 @@ class AccountMove(models.Model):
 
         types = {'out_invoice': -1, 'in_invoice': 1, 'out_refund': 1,
                  'in_refund': -1,'entry':1}
-        direction = types[inv_brw.type]
+        direction = types[inv_brw.move_type]
 
         for iwdl_brw in to_wh:
             rec = iwdl_brw.concept_id.property_retencion_islr_receivable
             pay = iwdl_brw.concept_id.property_retencion_islr_payable
-            if inv_brw.type in ('out_invoice', 'out_refund'):
+            if inv_brw.move_type in ('out_invoice', 'out_refund'):
                 acc = rec and rec.id or False
             else:
                 acc = pay and pay.id or False

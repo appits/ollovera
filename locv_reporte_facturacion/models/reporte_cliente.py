@@ -28,9 +28,9 @@ class ReportInvoiceCliente(models.AbstractModel):
                 fecha = inv.date_invoice
             fecha = datetime.strptime(str(fecha), '%Y-%m-%d')
             fecha = fecha.strftime('%d/%m/%Y')
-            if inv.type == 'out_invoice' or 'out_refund':
+            if inv.move_type == 'out_invoice' or 'out_refund':
                 n_factura = inv.name
-            elif inv.type == 'in_invoice' or 'in_refund':
+            elif inv.move_type == 'in_invoice' or 'in_refund':
                 n_factura = inv.supplier_invoice_number
      #       n_cliente = inv.partner_id.num_cliente
             razon = inv.partner_id.name

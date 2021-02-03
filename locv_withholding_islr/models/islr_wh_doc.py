@@ -826,7 +826,7 @@ class IslrWhDoc(models.Model):
             'currency_id': False,
         }
         if not name:
-            if invoice.type in ['in_invoice', 'in_refund']:
+            if invoice.move_type in ['in_invoice', 'in_refund']:
                 name = 'COMP. RET. ISLR ' + ret.number + \
                     ' Doc. ' + (invoice.supplier_invoice_number or '')
             else:
@@ -1330,7 +1330,7 @@ class IslrWhDocInvoices(models.Model):
 
         concept_list = self._get_concepts(ret_line.invoice_id)
 
-        if ret_line.invoice_id.type in ('in_invoice', 'in_refund'):
+        if ret_line.invoice_id.move_type in ('in_invoice', 'in_refund'):
             # Searching & Unlinking for xml lines from the current invoice
             xml_lines = ixwl_obj.search([(
                 'islr_wh_doc_inv_id', '=', ret_line.id)])
@@ -1410,7 +1410,7 @@ class IslrWhDocInvoices(models.Model):
         rp_obj = self.env['res.partner']
         inv_part_id = rp_obj._find_accounting_partner(invoice_id.partner_id)
         comp_part_id = rp_obj._find_accounting_partner(invoice_id.company_id.partner_id)
-        if invoice_id.type in ('in_invoice', 'in_refund'):
+        if invoice_id.move_type in ('in_invoice', 'in_refund'):
             vendor = inv_part_id
             buyer = comp_part_id
         else:
@@ -1428,7 +1428,7 @@ class IslrWhDocInvoices(models.Model):
         vendor_address = self._get_country_fiscal(vendor)
         buyer_address = self._get_country_fiscal(buyer)
         if vendor_address and buyer_address:
-            if self.invoice_id.type in ('in_invoice', 'in_refund'):
+            if self.invoice_id.move_type in ('in_invoice', 'in_refund'):
                 if (vendor.company_type== 'person' and vendor.people_type_individual == 'pnre') \
                     or (vendor.company_type == 'company' and vendor.people_type_company == 'pjdo'):
                     return True

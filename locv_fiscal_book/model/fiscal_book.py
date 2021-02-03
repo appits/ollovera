@@ -603,7 +603,7 @@ class FiscalBook(models.Model):
         inv_ids = inv_obj.search([('invoice_date', '>=', local_period.get('dt_from')),
                                   ('invoice_date', '<=', local_period.get('dt_to')),
                                   ('company_id', '=', fb_id.company_id.id),
-                                  ('type', 'in', inv_type),
+                                  ('move_type', 'in', inv_type),
                                   ('state', 'in', inv_state)],
                                  order='invoice_date asc')
 
@@ -736,7 +736,7 @@ class FiscalBook(models.Model):
         domain = ['|', '&', (True, '=', True), ('fb_id', '=', fb_brw.id),
                   '&', '&', '&', ('invoice_date', '>=', local_period.get('dt_from')),
                   ('invoice_date', '<=', local_period.get('dt_to')),
-                  ('type', 'in', inv_type), ('state', 'in', inv_state)]
+                  ('move_type', 'in', inv_type), ('state', 'in', inv_state)]
         issue_inv_ids = inv_obj.search(domain, order='invoice_date asc')
         if fb_brw.fortnight:
             issue_inv_ids = self.get_invoices_from_fortnight(fb_id, issue_inv_ids)
@@ -759,11 +759,11 @@ class FiscalBook(models.Model):
             total = invoice.amount_total
             a_pagar = invoice.amount_total
 
-            if invoice.type == 'in_invoice':
+            if invoice.move_type == 'in_invoice':
                 docum = invoice.supplier_invoice_number
-            elif invoice.type == 'out_invoice':
+            elif invoice.move_type == 'out_invoice':
                 docum = invoice.name
-            elif invoice.type == 'in_refund' or 'out_refund':
+            elif invoice.move_type == 'in_refund' or 'out_refund':
                 docum = invoice.invoice_origin
             invoice.write({'issue_fb_id': fb_id,
                            'amount_untaxed_signed': impuestos_exc,

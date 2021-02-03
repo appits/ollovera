@@ -45,8 +45,8 @@ class AccountInvoice(models.Model):
                 'out_refund': 1,
                 'in_refund': -1
             }
-            direction = types[invoice.type]
-            if invoice.type == 'in_invoice':
+            direction = types[invoice.move_type]
+            if invoice.move_type == 'in_invoice':
                 acc = acc_part_brw.property_county_wh_payable and \
                     acc_part_brw.property_county_wh_payable.id or False
             else:

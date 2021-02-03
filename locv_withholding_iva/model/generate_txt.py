@@ -77,7 +77,7 @@ class TxtIva(models.Model):
             res[txt.id] = 0.0
             if txt.create_date != False:
                 for txt_line in txt.txt_ids:
-                    if txt_line.invoice_id.type in ['out_refund', 'in_refund']:
+                    if txt_line.invoice_id.move_type in ['out_refund', 'in_refund']:
                         res[txt.id] -= txt_line.amount_withheld
                     else:
                         res[txt.id] += txt_line.amount_withheld
@@ -91,7 +91,7 @@ class TxtIva(models.Model):
             res[txt.id] = 0.0
             if txt.create_date != False:
                 for txt_line in txt.txt_ids:
-                    if txt_line.invoice_id.type in ['out_refund', 'in_refund']:
+                    if txt_line.invoice_id.move_type in ['out_refund', 'in_refund']:
                         res[txt.id] -= txt_line.untaxed
                     else:
                         res[txt.id] += txt_line.untaxed
@@ -171,7 +171,7 @@ class TxtIva(models.Model):
                     amount = voucher_tax_line.amount_ret
                     base = voucher_tax_line.base
                     base_total += voucher_tax_line.base
-                    if voucher_tax_line.wh_vat_line_id.invoice_id.type == 'in_invoice' or voucher_tax_line.wh_vat_line_id.invoice_id.type == 'in_refund':
+                    if voucher_tax_line.wh_vat_line_id.invoice_id.move_type == 'in_invoice' or voucher_tax_line.wh_vat_line_id.invoice_id.move_type == 'in_refund':
                         type = 'purchase'
                     else:
                         type = 'sale'
@@ -278,7 +278,7 @@ class TxtIva(models.Model):
         @param txt_line: line of the current document
         """
         number = '0'
-        if txt_line.invoice_id.type in ['out_refund', 'in_refund'] and txt_line.invoice_id.name.find("ND") != -1 or txt_line.invoice_id.name.find("nd") != -1\
+        if txt_line.invoice_id.move_type in ['out_refund', 'in_refund'] and txt_line.invoice_id.name.find("ND") != -1 or txt_line.invoice_id.name.find("nd") != -1\
                 or txt_line.invoice_id.name.find("NC") != -1 or txt_line.invoice_id.name.find("nc") != -1:
             number = txt_line.invoice_id.supplier_invoice_number
         elif txt_line.invoice_id:
@@ -311,7 +311,7 @@ class TxtIva(models.Model):
         @param inv_type: invoice type into txt line
         """
         number = 0
-        if txt_line.invoice_id.type in ['in_invoice', 'in_refund']:
+        if txt_line.invoice_id.move_type in ['in_invoice', 'in_refund']:
             if not txt_line.invoice_id.supplier_invoice_number:
                 raise exceptions.except_orm(
                     _('Acción Invalida!'),
@@ -332,9 +332,9 @@ class TxtIva(models.Model):
         @param txt_line: line of the current document
         """
         inv_type = '03'
-        if txt_line.invoice_id.type in ['out_invoice', 'in_invoice'] and txt_line.invoice_id.partner_id.people_type_company != 'pjnd' :
+        if txt_line.invoice_id.move_type in ['out_invoice', 'in_invoice'] and txt_line.invoice_id.partner_id.people_type_company != 'pjnd' :
             inv_type = '01'
-        elif txt_line.invoice_id.type in ['out_invoice', 'in_invoice'] and \
+        elif txt_line.invoice_id.move_type in ['out_invoice', 'in_invoice'] and \
                 txt_line.invoice_id.name:
             inv_type = '02'
         if txt_line.invoice_id.partner_id.company_type == 'company' and txt_line.invoice_id.partner_id.people_type_company == 'pjnd':
@@ -414,7 +414,7 @@ class TxtIva(models.Model):
             amount_total11 =0
             for txt_line in txt.txt_ids:
                 vendor, buyer = self.get_buyer_vendor(txt, txt_line)
-                if txt_line.invoice_id.type in ['out_invoice','out_refund']:
+                if txt_line.invoice_id.move_type in ['out_invoice','out_refund']:
                     if vendor:
                         vendor = vendor.replace("-", "")
                     else:
@@ -442,7 +442,7 @@ class TxtIva(models.Model):
                 period = self.get_period(txt.date_start)
                 # TODO: use the start date of the period to get the period2
                 # with the 'YYYYmm'
-                operation_type = ('V' if txt_line.invoice_id.type in
+                operation_type = ('V' if txt_line.invoice_id.move_type in
                                   ['out_invoice', 'out_refund'] else 'C')
                 document_type = self.get_type_document(txt_line)
                 document_number = self.get_document_number(

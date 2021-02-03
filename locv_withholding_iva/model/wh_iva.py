@@ -169,7 +169,7 @@ class AccountWhIvaLine(models.Model):
     @api.onchange('invoice_id')
     def invoice_id_change(self):
         if self.invoice_id:
-            self.type = self.invoice_id.type
+            self.type = self.invoice_id.move_type
 
     def load_taxes(self):
         """ Clean and load again tax lines of the withholding voucher
@@ -228,7 +228,7 @@ class AccountWhIvaLine(models.Model):
                     rec.amount_tax_ret = 0
                     rec.base_ret = 0
 
-                    if rec.invoice_id.type == 'in_refund':
+                    if rec.invoice_id.move_type == 'in_refund':
                         # rec.amount_tax_ret =  rec.invoice_id.amount_tax
 
                         rec.amount_tax_ret = sum(l.amount_ret for l in rec.tax_line)

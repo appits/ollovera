@@ -42,13 +42,13 @@ class IvaReport(models.AbstractModel):
                         total_base_exent = 0
                         total_amount_product = 0
                         base_exent = ' '
-                    if wh_iva.wh_lines.invoice_id.type == 'in_refund':
+                    if wh_iva.wh_lines.invoice_id.move_type == 'in_refund':
                         fact_afectted = str(wh_iva.wh_lines.invoice_id.ref)[14:29] if wh_iva.wh_lines.invoice_id.ref else ''
                         inv_refund = self.env['account.move'].search([('name','=', fact_afectted)])
                         inv_nro_fact = inv_refund.supplier_invoice_number
                         inv_nota = inv_refund.supplier_invoice_number
                         inv_nro_ctrl = inv_refund.nro_ctrl
-                    elif wh_iva.wh_lines.invoice_id.type == 'in_invoice':
+                    elif wh_iva.wh_lines.invoice_id.move_type == 'in_invoice':
                         inv_nro_ctrl = wh_iva.wh_lines.invoice_id.nro_ctrl
 
                         res_ali = []

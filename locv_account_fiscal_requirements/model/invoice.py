@@ -89,9 +89,9 @@ class AccountMove(models.Model):
         for inv in self:
 
             ids_ivo.append(inv.id)
-            if inv.type in ('out_invoice', 'out_refund'):
+            if inv.move_type in ('out_invoice', 'out_refund'):
                 return True
-            inv_ids = (self.search([(field, '=',value), ('type', '=', inv.type), ('partner_id', '=', inv.partner_id.id)]))
+            inv_ids = (self.search([(field, '=',value), ('move_type', '=', inv.move_type), ('partner_id', '=', inv.partner_id.id)]))
 
             if [True for i in inv_ids if i not in ids_ivo] and inv_ids:
                 return False
