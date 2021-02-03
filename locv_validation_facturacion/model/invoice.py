@@ -91,7 +91,7 @@ class AccountMoveInherit(models.Model):
     def write(self, vals):
         res = {}
         for move_account in self:
-            if move_account.type == 'in_invoice' and move_account.invoice_origin:
+            if move_account.move_type == 'in_invoice' and move_account.invoice_origin:
                 order_purchase = self.env['purchase.order'].search([('name', '=', self.invoice_origin)])
                 if order_purchase:
                     vals.update({'partner_id': order_purchase.partner_id.id})
